@@ -5,7 +5,6 @@
 
 // Number -> RPS
 // produces a random RPS value 
-let val = Math.floor(Math.random() * 3);
 
 function computerPlay (val) {
     switch (val) {
@@ -25,32 +24,43 @@ function computerPlay (val) {
     
 }
 
+// RPS RPS -> String
+// compares two RPS values and determines winner
 function playRound (playerSelection, computerSelection) {
     let playerChoice = playerSelection.toLowerCase();
 
     if (playerChoice === "rock") {
         if (computerSelection === "rock") {
-            return "Draw! Both chose Rock.";
+            return "Draw!";
         } else if (computerSelection === "paper") {
-            return "You lose! Paper beats Rock.";
+            return "You lose!";
         } else {
-            return "You win! Rock beats Scissors.";
+            return "You win!";
         }
     } else if (playerChoice === "paper") {
         if (computerSelection === "rock") {
-            return "You win! Paper beats Rock.";
+            return "You win!";
         } else if (computerSelection === "paper") {
-            return "Draw! Both chose Paper.";
+            return "Draw!";
         } else {
-            return "You lose! Scissors beats paper.";
+            return "You lose!";
         }
     } else {
         if (computerSelection === "rock") {
-            return "You lose! Rock beats scissors.";
+            return "You lose!";
         } else if (computerSelection === "paper") {
-            return "You win! Scissors beats Paper.";
+            return "You win!";
         } else {
-            return "Draw! Both chose Scissors."
+            return "Draw!"
         }
     }
+}
+
+// runs a 5 round game of RPS using player and computer inputs
+function game() {
+        let playerSelection = prompt("Rock, paper, scissors?");
+        let val = Math.floor(Math.random() * 3);
+        let computerSelection = computerPlay(val);
+        let winner = playRound(playerSelection, computerSelection);
+        return console.log(`You chose: ${playerSelection} Computer chose: ${computerSelection} ${winner}`);
 }
