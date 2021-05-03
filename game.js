@@ -1,12 +1,16 @@
 // RPS is one of:
-// - "Rock"
-// - "Paper"
-// - "Scissors"
+// - "rock"
+// - "paper"
+// - "scissors"
 
 // Number -> RPS
-// produces a random RPS value 
+// produces a random RPS value
 
-function computerPlay (val) {
+let playerScore = 0
+let computerScore = 0
+
+function computerPlay () {
+    let val = Math.floor(Math.random() * 3);
     switch (val) {
         case 0:
             return "rock";
@@ -33,22 +37,28 @@ function playRound (playerSelection, computerSelection) {
         if (computerSelection === "rock") {
             return "Draw!";
         } else if (computerSelection === "paper") {
+            computerScore++;
             return "You lose!";
         } else {
+            playerScore++;
             return "You win!";
         }
     } else if (playerChoice === "paper") {
         if (computerSelection === "rock") {
+            playerScore++;
             return "You win!";
         } else if (computerSelection === "paper") {
             return "Draw!";
         } else {
+            computerScore++;
             return "You lose!";
         }
     } else {
         if (computerSelection === "rock") {
+            computerScore++;
             return "You lose!";
         } else if (computerSelection === "paper") {
+            playerScore++;
             return "You win!";
         } else {
             return "Draw!"
@@ -60,10 +70,18 @@ function playRound (playerSelection, computerSelection) {
 function game() {
     for (let i = 0; i < 5; i ++) {
         let playerSelection = prompt("Rock, paper, scissors?");
-        let val = Math.floor(Math.random() * 3);
-        let computerSelection = computerPlay(val);
+        let computerSelection = computerPlay();
         let winner = playRound(playerSelection, computerSelection);
-        console.log(`You chose: ${playerSelection} Computer chose: ${computerSelection} ${winner}`);
+        console.log(`You chose: ${playerSelection} Computer chose: ${computerSelection}`);
+        console.log(`Player Score: ${playerScore} Computer Score: ${computerScore}`);
+        console.log(winner);
     }
-    return console.log("Game is over.")
+    
+    if (playerScore > computerScore) {
+        return console.log("You won!");
+    } else if (playerScore < computerScore) {
+        return console.log("You lost!") 
+    } else {
+        return console.log("Game is over.")
+    }
 }
