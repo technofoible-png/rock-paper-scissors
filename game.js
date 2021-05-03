@@ -58,9 +58,12 @@ function playRound (playerSelection, computerSelection) {
 
 // runs a 5 round game of RPS using player and computer inputs
 function game() {
+    for (let i = 0; i < 5; i ++) {
         let playerSelection = prompt("Rock, paper, scissors?");
         let val = Math.floor(Math.random() * 3);
         let computerSelection = computerPlay(val);
         let winner = playRound(playerSelection, computerSelection);
-        return console.log(`You chose: ${playerSelection} Computer chose: ${computerSelection} ${winner}`);
+        console.log(`You chose: ${playerSelection} Computer chose: ${computerSelection} ${winner}`);
+    }
+    return console.log("Game is over.")
 }
