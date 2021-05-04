@@ -2,13 +2,47 @@
 // - "rock"
 // - "paper"
 // - "scissors"
-
-// Number -> RPS
-// produces a random RPS value
+// interp. a "hand" in game of rock, paper, scissors
 
 let playerScore = 0
 let computerScore = 0
 
+const buttons = document.querySelectorAll("button");
+const results = document.querySelector(".results");
+
+const selections = document.createElement('p');
+const score = document.createElement('p');
+
+
+// button handler
+buttons.forEach((button) => {
+
+    button.addEventListener("click", () => {
+        playGame(button.value)
+    });
+});
+
+// Button event -> Boolean
+function playGame(val) {
+    let computerChoice = computerPlay();
+    let playerChoice = val;
+
+    playRound(playerChoice, computerChoice);
+    updateScore(playerChoice, computerChoice);
+    return console.log(isGameOver());
+}
+
+// Updates score after round
+function updateScore(playerChoice, computerChoice) {
+    selections.textContent = `You chose ${playerChoice}.
+    Computer chose ${computerChoice}.`;
+    score.textContent = `Player score: ${playerScore}
+    Computer Score: ${computerScore}`;
+    results.appendChild(selections);
+    results.appendChild(score);
+}
+
+// Get random RPS value for computer
 function computerPlay () {
     let val = Math.floor(Math.random() * 3);
     switch (val) {
@@ -27,84 +61,44 @@ function computerPlay () {
     }
 }
 
-// RPS RPS -> String
-// compares two RPS values and determines winner, updates score
+// Compare player and computer selections, update score
 function playRound (playerSelection, computerSelection) {
-    let playerChoice = playerSelection.toLowerCase();
-
-    if (playerChoice === "rock") {
+    if (playerSelection === "rock") {
         if (computerSelection === "rock") {
-            return "Draw!";
+            return "draw";
         } else if (computerSelection === "paper") {
             computerScore++;
-            return "You lose!";
+            return "computerwin";
         } else {
             playerScore++;
-            return "You win!";
+            return "playerwin";
         }
-    } else if (playerChoice === "paper") {
+    } else if (playerSelection === "paper") {
         if (computerSelection === "rock") {
             playerScore++;
-            return "You win!";
+            return "playerwin";
         } else if (computerSelection === "paper") {
-            return "Draw!";
+            return "draw";
         } else {
             computerScore++;
-            return "You lose!";
+            return "computerwin";
         }
     } else {
         if (computerSelection === "rock") {
             computerScore++;
-            return "You lose!";
+            return "computerwin";
         } else if (computerSelection === "paper") {
             playerScore++;
-            return "You win!";
+            return "playerwin";
         } else {
-            return "Draw!"
+            return "draw"
         }
     }
 }
 
-// runs a 5 round game of RPS using player and computer inputs
-function game() {
-    for (let i = 0; i < 5; i ++) {
-        let playerSelection = prompt("Rock, paper, scissors?");
-        let computerSelection = computerPlay();
-        let winner = playRound(playerSelection, computerSelection);
-        console.log(`You chose: ${playerSelection} Computer chose: ${computerSelection}`);
-        console.log(`Player Score: ${playerScore} Computer Score: ${computerScore}`);
-        console.log(winner);
-    }
-    
-    if (playerScore > computerScore) {
-        return console.log("You won!");
-    } else if (playerScore < computerScore) {
-        return console.log("You lost!") 
-    } else {
-        return console.log("Game is over.")
-    }
-}
-
-const buttons = document.querySelectorAll("button");
-const results = document.querySelector(".results");
-
-const selections = document.createElement('p');
-const score = document.createElement('p');
-
-buttons.forEach((button) => {
-
-    button.addEventListener("click", () => {
-        let computerSelection = computerPlay();
-        playRound(button.value, computerSelection);
-        
-        selections.textContent = `You chose ${button.value}.
-        Computer chose ${computerSelection}.`;
-        score.textContent = `Player score: ${playerScore}
-        Computer Score: ${computerScore}`;
-        results.appendChild(selections);
-        results.appendChild(score);
-    });
-});
-
-
-
+// Checks if either player or computer has > 5 points
+function isGameOver() {
+    if (playerScore === 5 || computerScore === 5) {
+        true;
+    } else false;
+};
