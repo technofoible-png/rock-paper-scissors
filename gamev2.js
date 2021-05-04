@@ -25,7 +25,6 @@ function computerPlay () {
             return "rock";
             break;
     }
-    
 }
 
 // RPS RPS -> String
@@ -85,3 +84,23 @@ function game() {
         return console.log("Game is over.")
     }
 }
+
+const buttons = document.querySelectorAll("button");
+const results = document.querySelector(".results");
+
+const selections = document.createElement('p');
+
+buttons.forEach((button) => {
+
+    button.addEventListener("click", () => {
+        let computerSelection = computerPlay();
+        playRound(button.value, computerSelection);
+        
+        selections.textContent = `You chose ${button.value}.
+        Computer chose ${computerSelection}.`;
+        results.appendChild(selections);
+    });
+});
+
+
+
