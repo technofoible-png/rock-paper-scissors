@@ -89,6 +89,7 @@ const buttons = document.querySelectorAll("button");
 const results = document.querySelector(".results");
 
 const selections = document.createElement('p');
+const score = document.createElement('p');
 
 buttons.forEach((button) => {
 
@@ -98,7 +99,10 @@ buttons.forEach((button) => {
         
         selections.textContent = `You chose ${button.value}.
         Computer chose ${computerSelection}.`;
+        score.textContent = `Player score: ${playerScore}
+        Computer Score: ${computerScore}`;
         results.appendChild(selections);
+        results.appendChild(score);
     });
 });
 
