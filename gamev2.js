@@ -14,7 +14,7 @@ const selections = document.createElement('p');
 const score = document.createElement('p');
 
 
-// button handler
+// Button handler
 buttons.forEach((button) => {
 
     button.addEventListener("click", () => {
@@ -22,15 +22,18 @@ buttons.forEach((button) => {
     });
 });
 
-// Button event -> Boolean
+// Runs game functions if not GameOver
 function playGame(val) {
-    let computerChoice = computerPlay();
-    let playerChoice = val;
-
-    playRound(playerChoice, computerChoice);
-    updateScore(playerChoice, computerChoice);
-    return console.log(isGameOver());
-}
+    if (isGameOver(playerScore, computerScore) === true) {
+        alert("game is over");
+    
+    } else {
+        let computerChoice = computerPlay();
+        let playerChoice = val;
+        playRound(playerChoice, computerChoice);
+        updateScore(playerChoice, computerChoice);
+    };
+};
 
 // Updates score after round
 function updateScore(playerChoice, computerChoice) {
@@ -97,8 +100,8 @@ function playRound (playerSelection, computerSelection) {
 }
 
 // Checks if either player or computer has > 5 points
-function isGameOver() {
-    if (playerScore === 5 || computerScore === 5) {
-        true;
-    } else false;
+function isGameOver(playerScore, computerScore) {
+    if (playerScore > 4 || computerScore > 4) {
+        return true;
+    } else return false;
 };
